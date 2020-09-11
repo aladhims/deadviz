@@ -1,0 +1,1 @@
+{"version":3,"file":"index.834c56f7.baacd9f06eb3e074e7df.hot-update.js","sources":["/Users/alfian/Documents/Project/OSS/extension/deadviz/src/utils.js"],"sourcesContent":["export const isEmptyObject = obj => obj ? Object.keys(obj).length === 0 && obj.constructor === Object : false;"],"mappings":";;;;;;;;;;AAAA;AAAA;AAAA;;;;A","sourceRoot":""}

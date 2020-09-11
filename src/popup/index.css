@@ -1,0 +1,14 @@
+@import '~antd/dist/antd.css';
+
+.full-width {
+    width: 100%;
+}
+
+.centered {
+    display: block;
+    margin: 0 auto;
+}
+
+.ant-tabs-nav-wrap {
+    margin-left: 48px !important;
+}

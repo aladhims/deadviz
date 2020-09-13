@@ -26,6 +26,7 @@ Add New             |  List
 - Edit existing Items
 - Multiple Pinned Items
 - Priority Levels
+- Advanced Options
 - More to be Added
 
 ### Inspiration

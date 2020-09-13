@@ -1,7 +1,7 @@
 {
   "name": "Deadviz",
   "description": "Visualize your plans/goals' deadlines",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "manifest_version": 2,
   "permissions": ["activeTab", "storage"],
   "chrome_url_overrides": {

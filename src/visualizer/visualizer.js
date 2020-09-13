@@ -108,7 +108,7 @@ const Visualizer = () => {
     }, []);
 
     if (loading) {
-        return <div></div>
+        return <div />
     }
 
     return deadlineExists ? <DeadlineVisualizer deadline={deadline} /> : <Welcome />;

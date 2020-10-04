@@ -30,5 +30,9 @@ Add New             |  List
 - Advanced Options
 - More to be Added
 
+### How to Contribute
+
+See the details [here](CONTRIBUTING.md).
+
 ### Inspiration
 Life Calendar by Tim Urban. [Inside the mind of a master procrastinator | Tim Urban](https://youtu.be/arj7oStGLkU) (a must watch TED!)

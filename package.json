@@ -17,6 +17,8 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "lint": "./node_modules/.bin/eslint src",
+    "lint:fix": "./node_modules/.bin/eslint src --fix",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -38,6 +40,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.1.0",
     "customize-cra": "^1.0.0",
+    "eslint-config-airbnb": "^18.2.0",
     "react-app-rewire-multiple-entry": "^2.2.0",
     "react-app-rewired": "^2.1.6",
     "source-map-explorer": "^2.5.0"

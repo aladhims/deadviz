@@ -31,6 +31,17 @@ Note: it's a hot reload local development.
 ### Development Style
 
 - Use Linter as the main style navigation
+
+For checking code style issues use console command:
+```
+❯ npm run lint
+```
+
+If any exists you can apply automatic fix:
+```
+❯ npm run lint:fix
+```
+
 - Use `styled component` for creating custom components
 - Please keep the project structure tidy, if a component grows too big, split it into chunks.
 

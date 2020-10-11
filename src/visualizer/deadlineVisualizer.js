@@ -1,8 +1,8 @@
 import React from "react";
-import styled, {keyframes} from "styled-components";
-import {Divider, Layout, Tooltip} from 'antd';
+import styled, { keyframes } from "styled-components";
+import { Divider, Layout, Tooltip } from 'antd';
 
-const {Header, Footer, Content} = Layout;
+const { Header, Footer, Content } = Layout;
 
 const Container = styled.div`
     left: 50%;
@@ -68,28 +68,28 @@ const Title = styled(Divider)`
     font-size: 20px !important;
 `;
 
-const DeadlineVisualizer = ({deadline}) => {
+const DeadlineVisualizer = ({ deadline }) => {
     document.title = `${deadline.name} - ${deadline.summary}`;
     return (
-        <Layout style={{height: '100vh', width: '100vw'}}>
-            <Header style={{backgroundColor: '#fff'}}>
+        <Layout style={{ height: '100vh', width: '100vw' }}>
+            <Header style={{ backgroundColor: '#fff' }}>
                 <Title>{deadline.name}</Title>
             </Header>
             <Content>
                 <Container>
                     <BoxContainer>
                         {deadline.boxes.map((item, index) => item.passed ?
-                            <Tooltip title={item.info} color="red">
-                                <PassedBox key={index} delay={index + 1}/>
+                            <Tooltip title={item.info} color="red" key={index}>
+                                <PassedBox delay={index + 1} />
                             </Tooltip>
                             :
-                            <Tooltip title={item.info}>
-                                <Box key={index} delay={index + 1}/>
+                            <Tooltip title={item.info} key={index}>
+                                <Box delay={index + 1} />
                             </Tooltip>)}
                     </BoxContainer>
                 </Container>
             </Content>
-            <Footer style={{backgroundColor: '#fff'}}>
+            <Footer style={{ backgroundColor: '#fff' }}>
                 <Divider>{deadline.summary}</Divider>
             </Footer>
         </Layout>

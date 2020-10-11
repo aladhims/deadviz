@@ -1,11 +1,11 @@
 /*global chrome*/
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import duration from "dayjs/plugin/duration";
 import DeadlineVisualizer from "./deadlineVisualizer";
 import Welcome from "./welcome";
-import {isEmptyObject} from "../utils";
+import { isEmptyObject } from "../utils";
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -16,11 +16,25 @@ const week = "week";
 const month = "month";
 const year = "year";
 
-const chooseRandomDeadline = deadlines => {
-    const random = Math.ceil(Math.random() * 100);
-    const index = random % deadlines.length;
+const getMaxPriorityElement = prioritized => {
+    const max_priority = [prioritized[0]]
+    prioritized.slice(1).forEach((item) => {
+        if (item.priority === max_priority[0].priority) {
+            max_priority.push(item)
+        }
+    })
 
-    return parseData(deadlines[index]);
+    var index = Math.floor((Math.random() - 0.001) * max_priority.length)
+    return max_priority[index]
+}
+
+const chooseRandomDeadline = deadlines => {
+    // first sort the array based on priority
+    const prioritized = deadlines.sort((a, b) => (b.priority - a.priority))
+    // check if the priority elements have multiple items
+    const max_priority = prioritized.length === 1 ? prioritized[0] : getMaxPriorityElement(prioritized)
+
+    return parseData(max_priority);
 };
 
 const parseData = deadline => {
@@ -57,10 +71,10 @@ const parseData = deadline => {
         const passedTime = now.to(startDate);
 
         if (startDate.isAfter(now)) {
-            boxes.push({passed: false, info: remainingTime});
+            boxes.push({ passed: false, info: remainingTime });
         } else {
             passedBoxCount++;
-            boxes.push({passed: true, info: passedTime});
+            boxes.push({ passed: true, info: passedTime });
         }
 
         startDate = startDate.add(1, timeUnit);
@@ -108,7 +122,7 @@ const Visualizer = () => {
     }, []);
 
     if (loading) {
-        return <div />
+        return <Welcome />
     }
 
     return deadlineExists ? <DeadlineVisualizer deadline={deadline} /> : <Welcome />;

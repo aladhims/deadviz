@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useRef, useCallback} from "react";
 import {Tag, Input} from 'antd';
-import {  PlusCircleOutlined  } from '@ant-design/icons';
+import {  PlusCircleOutlined, CloseCircleOutlined   } from '@ant-design/icons';
 import styled from "styled-components";
 import {ChromeStorage} from '../../db/chromeSotrage';
 
@@ -9,6 +9,9 @@ const Tags = styled(Tag)`
     margin-bottom: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     height: 25px;
+    &:hover {
+      cursor: pointer;
+    }
 `;
 
 const NewTag = styled(Tag)`
@@ -20,13 +23,15 @@ const NewTag = styled(Tag)`
 `;
 
 const CustomTag = ({deadlineTag, tagItem}) => {
-  const  [tags, setTags] = useState([]);
+  const  [tags, setTags] = useState(null);
   const  [inputVisible, setInputVisible] = useState(false);
   const  [inputValue, setInputValue] = useState('');
   const refInput = useRef(null);
 
   const handleClose = (indexTag) => {
-    ChromeStorage.removeTag(deadlineTag.id,tagItem.index, indexTag)
+    ChromeStorage.removeTag(deadlineTag.id,tagItem.index, indexTag).then(result => {
+      updateCacheTag();
+    });
   };
 
   const showInput =  useCallback(() => {
@@ -64,7 +69,7 @@ const CustomTag = ({deadlineTag, tagItem}) => {
       if (tags) {
         setTags([...tags, inputValue]);
       } else {
-        setTags(inputValue);
+        setTags([inputValue]);
       }
       updateSotrageTag(inputValue);
     }
@@ -91,11 +96,10 @@ const CustomTag = ({deadlineTag, tagItem}) => {
               <>
               { (tags || [] ).map((item, index) => { return ( 
                       <> 
-                          <Tags
+                          <Tags icon={<CloseCircleOutlined  />}
                               className="edit-tag"
                               key={index}
-                              closable={true}
-                              onClose={(e) => {handleClose(index)}}
+                              onClick={(e) => {handleClose(index)}}
                               >{item}
                           </Tags>
                       </>)})

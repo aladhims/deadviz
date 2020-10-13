@@ -11,7 +11,7 @@ export const ChromeStorage =  {
     },
 
     removeData: (key) => {
-        chrome.storage.sync.set({key: null}, ()=>{});
+        chrome.storage.sync.set({[`${key}`]: null}, ()=>{});
     },
 
     /** Removes the deadline and saves the updated one */

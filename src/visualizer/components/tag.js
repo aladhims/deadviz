@@ -89,7 +89,7 @@ const CustomTag = ({deadlineTag, tagItem}) => {
     return (
            (tagItem != null ? tagItem.item.passed : false)  && (
               <>
-              {(tags) && (tags.map((item, index) => { return ( 
+              { (tags || [] ).map((item, index) => { return ( 
                       <> 
                           <Tags
                               className="edit-tag"
@@ -98,7 +98,7 @@ const CustomTag = ({deadlineTag, tagItem}) => {
                               onClose={(e) => {handleClose(index)}}
                               >{item}
                           </Tags>
-                      </>)}))
+                      </>)})
               }
               {inputVisible && (
                   <Input

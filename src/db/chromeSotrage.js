@@ -6,12 +6,12 @@ export const ChromeStorage =  {
         });
     },
 
-    saveData: (key, value) => {
-        chrome.storage.sync.set({[`${key}`]: value}, ()=>{});
+    saveData: (key, value, callback = null) => {
+        chrome.storage.sync.set({[`${key}`]: value}, callback);
     },
 
-    removeData: (key) => {
-        chrome.storage.sync.set({[`${key}`]: null}, ()=>{});
+    removeData: (key, callback = null) => {
+        chrome.storage.sync.set({[`${key}`]: null}, callback);
     },
 
     /** Removes the deadline and saves the updated one */

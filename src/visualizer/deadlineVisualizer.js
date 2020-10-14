@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import styled, {keyframes} from "styled-components";
 import PropTypes from "prop-types";
 import {Divider, Layout, Tooltip} from 'antd';
+import CustomTag from './components/tag';
 
 const {Header, Footer, Content} = Layout;
 
@@ -15,6 +16,17 @@ const Container = styled.div`
   flex-flow: row wrap;
   justify-content: flex-start;
 `;
+
+const ContainerTags = styled.div`
+  position: relative;
+  top: 50%;
+  width: 500px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin: auto;
+`;
+
 
 const BoxContainer = styled.div`
     display: flex;
@@ -71,6 +83,8 @@ const Title = styled(Divider)`
 
 const DeadlineVisualizer = ({deadline}) => {
     document.title = `${deadline.name} - ${deadline.summary}`;
+    const  [currentTagBox, setCurrentTagBox] = useState(null);
+
     return (
         <Layout style={{height: '100vh', width: '100vw'}}>
             <Header style={{backgroundColor: '#fff'}}>
@@ -81,14 +95,27 @@ const DeadlineVisualizer = ({deadline}) => {
                     <BoxContainer>
                         {deadline.boxes.map((item, index) => item.passed ?
                             <Tooltip title={item.info} color="red">
-                                <PassedBox key={index} delay={index + 1}/>
+                                <PassedBox onMouseEnter={()=>{setCurrentTagBox({item, index})}}
+                                            key={index} 
+                                            delay={index + 1}/>
                             </Tooltip>
                             :
                             <Tooltip title={item.info}>
-                                <Box key={index} delay={index + 1}/>
+                                <Box key={index} 
+                                     delay={index + 1}
+                                     onMouseEnter={()=>{setCurrentTagBox({item, index})}}
+                                />
                             </Tooltip>)}
                     </BoxContainer>
                 </Container>
+               <ContainerTags>
+                    <BoxContainer>
+                       <CustomTag 
+                            deadlineTag = {deadline != null ? deadline : null}
+                            tagItem = {currentTagBox}
+                       ></CustomTag>
+                    </BoxContainer>
+               </ContainerTags>
             </Content>
             <Footer style={{backgroundColor: '#fff'}}>
                 <Divider>{deadline.summary}</Divider>

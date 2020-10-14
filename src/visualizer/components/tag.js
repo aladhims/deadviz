@@ -47,7 +47,7 @@ const CustomTag = ({deadlineTag, tagItem}) => {
   };
 
 
-  const updateSotrageTag = (tag) => {;
+  const updateStorageTag = (tag) => {;
     ChromeStorage.getDeadline(deadlineTag.id).then
         ( deadline => {
             if(deadline.tag) {
@@ -71,7 +71,7 @@ const CustomTag = ({deadlineTag, tagItem}) => {
       } else {
         setTags([inputValue]);
       }
-      updateSotrageTag(inputValue);
+      updateStorageTag(inputValue);
     }
     setInputVisible(false);
     setInputValue('');

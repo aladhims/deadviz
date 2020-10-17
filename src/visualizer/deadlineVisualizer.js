@@ -1,6 +1,7 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import { Divider, Layout, Tooltip } from 'antd';
+import styled, {keyframes} from "styled-components";
+import PropTypes from "prop-types";
+import {Divider, Layout, Tooltip} from 'antd';
 
 const { Header, Footer, Content } = Layout;
 
@@ -94,6 +95,17 @@ const DeadlineVisualizer = ({ deadline }) => {
             </Footer>
         </Layout>
     );
+}
+
+DeadlineVisualizer.propTypes = {
+    deadline: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        summary: PropTypes.string.isRequired,
+        boxes: PropTypes.arrayOf(PropTypes.shape({
+            info: PropTypes.string.isRequired,
+            passed: PropTypes.bool.isRequired
+        })).isRequired
+    }).isRequired
 }
 
 export default DeadlineVisualizer;

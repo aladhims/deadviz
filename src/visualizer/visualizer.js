@@ -80,7 +80,7 @@ const parseData = deadline => {
             boxes.push({ passed: false, info: remainingTime });
         } else {
             passedBoxCount++;
-            boxes.push({ passed: true, info: passedTime });
+            boxes.push({passed: true, info: passedTime, index: i });
         }
 
         startDate = startDate.add(1, timeUnit);
@@ -95,7 +95,8 @@ const parseData = deadline => {
     return {
         name: deadline.name,
         boxes,
-        summary: `${remaining} ${timeUnit} remaining (${percentage}%)`
+        summary: `${remaining} ${timeUnit} remaining (${percentage}%)`,
+        id: deadline.id,
     };
 };
 
@@ -130,7 +131,6 @@ const Visualizer = () => {
     if (loading) {
         return <div />
     }
-
     return deadlineExists ? <DeadlineVisualizer deadline={deadline} /> : <Welcome />;
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import PropTypes from "prop-types";
 
 import { Form, Input, Tooltip, Button, Slider } from 'antd';
 import DatePicker from "./DatePicker";
@@ -102,6 +103,10 @@ const Submission = ({ onSubmit }) => {
             </Form.Item>
         </StyledForm>
     );
+}
+
+Submission.propTypes = {
+    onSubmit: PropTypes.func.isRequired
 }
 
 export default Submission;

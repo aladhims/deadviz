@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import styled from 'styled-components';
+import PropTypes from "prop-types";
 
 import {List, Button, Popconfirm, Divider} from 'antd';
 import {DeleteOutlined, PushpinFilled} from '@ant-design/icons';
@@ -18,7 +19,6 @@ const DeadlineList = ({pinned, data, onPin, onUnpin, onDelete}) => {
     const formatDate = date => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const formatDescription = item => `${formatDate(new Date(item.start))} ~ ${formatDate(new Date(item.end))}`;
 
-    console.log(pinned)
     return (
         <Container>
             {pinned ? <Fragment>
@@ -66,6 +66,24 @@ const DeadlineList = ({pinned, data, onPin, onUnpin, onDelete}) => {
             />
         </Container>
     );
+}
+
+const pinnedPropTypes = PropTypes.shape({
+    end: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    start: PropTypes.string.isRequired
+}).isRequired;
+
+DeadlineList.propTypes = {
+    pinned: pinnedPropTypes,
+    data: PropTypes.shape({
+        deadlines: PropTypes.arrayOf(pinnedPropTypes).isRequired,
+        pinned: pinnedPropTypes,
+    }).isRequired,
+    onPin: PropTypes.func.isRequired,
+    onUnpin: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 export default DeadlineList;

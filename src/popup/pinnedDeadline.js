@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {Popconfirm, Typography} from 'antd';
+import PropTypes from "prop-types";
 import {PushpinTwoTone} from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -33,5 +34,10 @@ const PinnedDeadline = ({title, description, onUnpin}) => (
     </Container>
 );
 
-export default PinnedDeadline;
+PinnedDeadline.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    onUnpin: PropTypes.func.isRequired
+}
 
+export default PinnedDeadline;

@@ -8,8 +8,6 @@ import { isEmptyObject } from "../utils";
 import DeadlineList from "./deadlineList";
 import Submission from "./submission";
 
-
-
 const { TabPane } = Tabs;
 
 const StyledTabs = styled(Tabs)`
@@ -30,7 +28,7 @@ const Menu = () => {
         chrome.storage.sync.get(['deadlines', 'pinned'], data => {
             console.log(data);
             if (!data) {
-                return
+                return;
             }
 
             if (!!data.pinned) {
@@ -102,7 +100,7 @@ const Menu = () => {
 
     const handleUnpin = () => {
         if (isEmptyObject(existingPinnedDeadline)) {
-            return
+            return;
         }
 
         deadlines.push(existingPinnedDeadline);
@@ -111,7 +109,7 @@ const Menu = () => {
             pinned: {},
         }, function () {
             console.log('a new pinned deadline has been set');
-            setExistingPinnedDeadline({})
+            setExistingPinnedDeadline({});
             setDeadlines(deadlines);
             newTabReload();
         });

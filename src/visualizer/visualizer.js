@@ -17,24 +17,30 @@ const month = "month";
 const year = "year";
 
 const getMaxPriorityElement = prioritized => {
-    const max_priority = [prioritized[0]]
+    const topPriorities = [prioritized[0]];
+    // Get all the top priority deadlines
     prioritized.slice(1).forEach((item) => {
-        if (item.priority === max_priority[0].priority) {
-            max_priority.push(item)
+        if (item.priority === topPriorities[0].priority) {
+            topPriorities.push(item);
         }
     })
 
-    var index = Math.floor((Math.random() - 0.001) * max_priority.length)
-    return max_priority[index]
+    // Get a random number between 0 and 1 (exclusive)
+    // We take a threshold of 0.001 so if the random() method produces 1 (rare) we don't overflow the indexing limits
+    // Also taking the absolute value so (-0.001) doesn't come up in any case.
+    // This randomNumber will generate a index at which our priority will lie.
+    const randomNumber = Math.abs(Math.random() - 0.001);
+    var index = Math.floor(randomNumber * topPriorities.length);
+    return topPriorities[index];
 }
 
 const chooseRandomDeadline = deadlines => {
     // first sort the array based on priority
-    const prioritized = deadlines.sort((a, b) => (b.priority - a.priority))
+    const prioritized = deadlines.sort((a, b) => (b.priority - a.priority));
     // check if the priority elements have multiple items
-    const max_priority = prioritized.length === 1 ? prioritized[0] : getMaxPriorityElement(prioritized)
+    const maxPriority = prioritized.length === 1 ? prioritized[0] : getMaxPriorityElement(prioritized);
 
-    return parseData(max_priority);
+    return parseData(maxPriority);
 };
 
 const parseData = deadline => {
@@ -122,7 +128,7 @@ const Visualizer = () => {
     }, []);
 
     if (loading) {
-        return <Welcome />
+        return <div />
     }
 
     return deadlineExists ? <DeadlineVisualizer deadline={deadline} /> : <Welcome />;

@@ -1,16 +1,14 @@
 /*global chrome*/
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {Tabs} from 'antd';
-import {AimOutlined, BarsOutlined, SettingTwoTone} from '@ant-design/icons';
+import { Tabs } from 'antd';
+import { AimOutlined, BarsOutlined, SettingTwoTone } from '@ant-design/icons';
 
 import { isEmptyObject } from "../utils";
 import DeadlineList from "./deadlineList";
 import Submission from "./submission";
 
-
-
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 const StyledTabs = styled(Tabs)`
     width: 300px;
@@ -30,7 +28,7 @@ const Menu = () => {
         chrome.storage.sync.get(['deadlines', 'pinned'], data => {
             console.log(data);
             if (!data) {
-                return
+                return;
             }
 
             if (!!data.pinned) {
@@ -54,24 +52,25 @@ const Menu = () => {
 
     const handleDelete = (id, index) => {
         const newDeadlines = [...deadlines.slice(0, index), ...deadlines.slice(index + 1)];
-        chrome.storage.sync.set({deadlines: newDeadlines}, () => {
+        chrome.storage.sync.set({ deadlines: newDeadlines }, () => {
             console.log(`Deadline with ID ${id} has been deleted`);
             setDeadlines(newDeadlines);
             newTabReload();
         });
     }
 
-    const handleAdd = ({name, start, end}) => {
+    const handleAdd = ({ name, start, end, priority }) => {
         const deadline = {
             id: Date.now(),
             name,
             start: start.toJSON(),
-            end: end.toJSON()
+            end: end.toJSON(),
+            priority
         };
 
         const newDeadlines = [...deadlines, deadline];
 
-        chrome.storage.sync.set({deadlines: newDeadlines}, function () {
+        chrome.storage.sync.set({ deadlines: newDeadlines }, function () {
             console.log('new goal/plan has been added');
             setDeadlines(newDeadlines);
             newTabReload();
@@ -101,7 +100,7 @@ const Menu = () => {
 
     const handleUnpin = () => {
         if (isEmptyObject(existingPinnedDeadline)) {
-            return
+            return;
         }
 
         deadlines.push(existingPinnedDeadline);
@@ -110,27 +109,26 @@ const Menu = () => {
             pinned: {},
         }, function () {
             console.log('a new pinned deadline has been set');
-            setExistingPinnedDeadline({})
+            setExistingPinnedDeadline({});
             setDeadlines(deadlines);
             newTabReload();
         });
     }
 
-
     return (
-        <StyledTabs tabBarExtraContent={<StyledSetting twoToneColor="#a6a6a6"/>} defaultActiveKey="1" centered
-                    animated={true}>
+        <StyledTabs tabBarExtraContent={<StyledSetting twoToneColor="#a6a6a6" />} defaultActiveKey="1" centered
+            animated={true}>
             <TabPane tab={
                 <span>
-                    <AimOutlined/>
+                    <AimOutlined />
                     New
                 </span>
             } key="1">
-                <Submission onSubmit={handleAdd}/>
+                <Submission onSubmit={handleAdd} />
             </TabPane>
             <TabPane tab={
                 <span>
-                    <BarsOutlined/>
+                    <BarsOutlined />
                     List
                 </span>
             } key="2">
@@ -139,7 +137,7 @@ const Menu = () => {
                     data={deadlines}
                     onPin={handlePin}
                     onUnpin={handleUnpin}
-                    onDelete={handleDelete}/>
+                    onDelete={handleDelete} />
             </TabPane>
         </StyledTabs>
     );

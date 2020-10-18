@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {Divider, Layout, Tooltip} from 'antd';
 import CustomTag from './components/tag';
 
-const {Header, Footer, Content} = Layout;
+const { Header, Footer, Content } = Layout;
 
 const Container = styled.div`
     left: 50%;
@@ -81,13 +81,13 @@ const Title = styled(Divider)`
     font-size: 20px !important;
 `;
 
-const DeadlineVisualizer = ({deadline}) => {
+const DeadlineVisualizer = ({ deadline }) => {
     document.title = `${deadline.name} - ${deadline.summary}`;
     const  [currentTagBox, setCurrentTagBox] = useState(null);
 
     return (
-        <Layout style={{height: '100vh', width: '100vw'}}>
-            <Header style={{backgroundColor: '#fff'}}>
+        <Layout style={{ height: '100vh', width: '100vw' }}>
+            <Header style={{ backgroundColor: '#fff' }}>
                 <Title>{deadline.name}</Title>
             </Header>
             <Content>
@@ -117,7 +117,7 @@ const DeadlineVisualizer = ({deadline}) => {
                     </BoxContainer>
                </ContainerTags>
             </Content>
-            <Footer style={{backgroundColor: '#fff'}}>
+            <Footer style={{ backgroundColor: '#fff' }}>
                 <Divider>{deadline.summary}</Divider>
             </Footer>
         </Layout>
